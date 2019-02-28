@@ -1,0 +1,55 @@
+syntax = "proto3"; // 指定proto版本
+package grpc_login;     // 指定包名
+
+// 定义Register服务
+service Register {
+	// 定义RegisterUser方法
+	rpc RegisterUser(RegisterRequest) returns (RegisterResponse) {}
+}
+
+// RegisterRequest 请求结构
+message RegisterRequest {
+	string user = 1;
+	string password = 2;
+}
+
+// RegisterResponse 响应结构
+message RegisterResponse {
+	string message = 1;
+}
+
+
+// 定义登陆服务
+service Login {
+	// 定义UserLogin方法
+	rpc UserLogin(LoginRequest) returns (LoginResponse) {}
+}
+
+// HelloRequest 请求结构
+message LoginRequest {
+	string user = 1;
+	string password = 2;
+}
+
+// HelloResponse 响应结构
+message LoginResponse {
+    string token = 1;
+}
+
+
+// 定义Hello服务
+service Hello {
+	// 定义SayHello方法
+	rpc SayHello(HelloRequest) returns (HelloResponse) {}
+}
+
+// HelloRequest 请求结构
+message HelloRequest {
+	string name = 1;
+}
+
+// HelloResponse 响应结构
+message HelloResponse {
+	string message = 1;
+}
+
