@@ -5,4 +5,4 @@ RUN go install grpc-login
 RUN rm -rf /go/src
 
 ENTRYPOINT /go/bin/grpc-login
-EXPOSE 8080
+EXPOSE 9090

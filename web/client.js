@@ -9,8 +9,8 @@ const helloClient = new HelloClient('http://192.168.3.182:8080');
 
 var token ="";
 const loginRequest = new LoginRequest();
-loginRequest.setUser('101010');
-loginRequest.setPassword('i am key');
+loginRequest.setUser('admin');
+loginRequest.setPassword('admin');
 console.log(loginRequest)
 loginClient.login(loginRequest, (err, LoginResponse) => {
 	if(err){
@@ -27,7 +27,7 @@ const helloRequest = new HelloRequest();
 helloRequest.setName('admin');
 request.setPassword('123456');
 
-const metadata = {"token":"101010"}
+const metadata = {"token":token}
 helloClient.sayHello(helloRequest, metadata, (err, HelloResponse) => {
 	if(err){
 	console.log('error');
