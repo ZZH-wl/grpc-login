@@ -1,4 +1,5 @@
 package main
+
 import (
 	"context"
 	"fmt"
@@ -6,14 +7,14 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	pb "grpc-login/proto"
 	"log"
 	"net"
-	pb "grpc-login/proto"
 )
 
 const (
 	// Address gRPC服务地址
-	Address = "192.168.3.182:9090"
+	Address = "0.0.0.0:9090"
 )
 
 // 定义registerService并实现约定的接口
@@ -34,12 +35,8 @@ func (r registerService) RegisterUser(ctx context.Context, in *pb.RegisterReques
 	return resp, nil
 }
 
-
-
-
 // 定义loginService并实现约定的接口
 type loginService struct{}
-
 
 // LoginService ...
 var LoginService = loginService{}
@@ -56,8 +53,6 @@ func (l loginService) UserLogin(ctx context.Context, in *pb.LoginRequest) (*pb.L
 	return resp, nil
 }
 
-
-
 // 定义helloService并实现约定的接口
 type helloService struct{}
 
@@ -73,13 +68,12 @@ func (h helloService) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.He
 	}
 
 	var (
-		token  string
+		token string
 	)
 
 	if val, ok := md["authorization"]; ok {
 		token = val[0]
 	}
-
 
 	if token != "qazxsw123edcvfr4567890okmnjiuhbvgytfr" {
 		return nil, status.Errorf(codes.Unauthenticated, "Token认证信息无效: token=%s", token)
@@ -97,8 +91,6 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-
-
 	// 实例化grpc Server, 并开启TLS认证
 	s := grpc.NewServer()
 
@@ -112,4 +104,3 @@ func main() {
 	s.Serve(listen)
 
 }
-
